@@ -1,43 +1,86 @@
 import * as FadeIn from "@/components/motion/staggers/fade";
-import { Posts } from "@/components/posts";
 import { Footer } from "@/components/ui/footer";
 import { POSTS_DIRECTORY } from "@/lib/constants";
 import { getPosts } from "@/lib/mdx";
 
+import { DiscordLogoIcon } from "@radix-ui/react-icons";
+import { Button, Flex, Heading, Text } from "@radix-ui/themes";
 import Image from "next/image";
-
-const Spacer = () => <div style={{ marginTop: "10px" }} />;
+import Link from "next/link";
 
 export default function Home() {
   const blogPosts = getPosts(POSTS_DIRECTORY);
 
   return (
-    <FadeIn.Container>
-      <FadeIn.Item>
-        <Image
-          className="mb-2"
-          src="/images/blockclock.png"
-          alt="William"
-          width={60}
-          height={60}
-        />
-      </FadeIn.Item>
-      <FadeIn.Item>
-        <div className="flex justify-between">
-          <div>
-            <h1> Blog/Landing Page Template</h1>
-          </div>
-        </div>
-      </FadeIn.Item>
-      <Spacer />
-      <FadeIn.Item>
-        <p>A landing page template for a blog.</p>
-      </FadeIn.Item>
-      <FadeIn.Item>
-        <Posts category={POSTS_DIRECTORY} posts={blogPosts} />
-      </FadeIn.Item>
+    <FadeIn.Container className="flex flex-col min-h-screen">
+      <Flex
+        direction="column"
+        align="center"
+        justify="center"
+        className="flex-grow -mt-64 text-center"
+      >
+        <FadeIn.Item>
+          <Image
+            className="mb-2"
+            src="/images/discorss.png"
+            alt="Discorss"
+            width={60}
+            height={60}
+          />
+        </FadeIn.Item>
+        <FadeIn.Item>
+          <Heading size="8" className="text-[#8264FA] mb-1">
+            Discorss
+          </Heading>
+        </FadeIn.Item>
+        <FadeIn.Item>
+          <Text size="4" className="text-gray-11 max-w-md mx-auto text-base">
+            Your RSS feeds, brilliantly summarized and delivered straight to
+            Discord.
+            <br />
+            <br />
+            Customize your feeds and stay informed with AI-powered insights
+            using simple slash commands.
+          </Text>
+        </FadeIn.Item>
+        <FadeIn.Item>
+          <Link href="https://discord.com/oauth2/authorize?client_id=1359049476207280169">
+            <Button
+              size="3"
+              variant="solid"
+              highContrast
+              className="my-4 bg-[#8264FA] hover:bg-[#8264FA] text-white px-4 py-2 rounded-base"
+            >
+              <DiscordLogoIcon className="size-4 mr-2" />
+              Add to Discord
+            </Button>
+          </Link>
+        </FadeIn.Item>
+        <FadeIn.Item>
+          <Text size="2" className="text-gray-10 mt-8 text-base">
+            Self-hosting & Open Source coming soon!
+          </Text>
+        </FadeIn.Item>
+        <FadeIn.Item>
+          <Flex gap="4" mt="6" justify="center">
+            <Image
+              src="/images/feed-list.png"
+              alt="Discorss Feed List Example"
+              width={300}
+              height={200}
+              className="rounded-lg shadow-lg border border-gray-a3"
+            />
+            <Image
+              src="/images/feed-post.png"
+              alt="Discorss Feed Post Example"
+              width={300}
+              height={200}
+              className="rounded-lg shadow-lg border border-gray-a3"
+            />
+          </Flex>
+        </FadeIn.Item>
+      </Flex>
 
-      <Spacer />
       <FadeIn.Item>
         <Footer />
       </FadeIn.Item>
