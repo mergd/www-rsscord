@@ -1,0 +1,8 @@
+Use Radix Theme components.
+I have tailwind as well, so if needed use these as well.
+Use lucide-react icons.
+
+Make the UI delightful!, compact, skeumorphic, heavily inspired by Linear.
+Use radix colors for tailwind (e.g. text-gray-12)
+Cut down on the amount of padding and margin.
+Add text-base tailwind class when you want to use the default font size.
