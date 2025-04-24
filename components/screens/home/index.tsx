@@ -1,5 +1,8 @@
+"use client";
+
 import * as FadeIn from "@/components/motion/staggers/fade";
 import { Footer } from "@/components/ui/footer";
+import { GuideDialog } from "@/components/ui/guide-dialog";
 import { POSTS_DIRECTORY } from "@/lib/constants";
 import { getPosts } from "@/lib/mdx";
 
@@ -7,9 +10,13 @@ import { DiscordLogoIcon } from "@radix-ui/react-icons";
 import { Button, Flex, Heading, Text } from "@radix-ui/themes";
 import Image from "next/image";
 import Link from "next/link";
+import React, { useState } from "react";
 
 export default function Home() {
   const blogPosts = getPosts(POSTS_DIRECTORY);
+  const [isGuideOpen, setIsGuideOpen] = useState(false);
+  const discordInviteLink =
+    "https://discord.com/oauth2/authorize?client_id=1359049476207280169";
 
   return (
     <FadeIn.Container className="flex flex-col min-h-screen">
@@ -17,7 +24,7 @@ export default function Home() {
         direction="column"
         align="center"
         justify="center"
-        className="flex-grow -mt-64 text-center"
+        className="flex-grow md:-mt-64 text-center"
       >
         <FadeIn.Item>
           <Image
@@ -44,17 +51,16 @@ export default function Home() {
           </Text>
         </FadeIn.Item>
         <FadeIn.Item>
-          <Link href="https://discord.com/oauth2/authorize?client_id=1359049476207280169">
-            <Button
-              size="3"
-              variant="solid"
-              highContrast
-              className="my-4 bg-[#8264FA] hover:bg-[#8264FA] text-white px-4 py-2 rounded-base"
-            >
-              <DiscordLogoIcon className="size-4 mr-2" />
-              Add to Discord
-            </Button>
-          </Link>
+          <Button
+            size="3"
+            variant="solid"
+            highContrast
+            className="cursor-pointer my-4 bg-[#8264FA] hover:bg-[#8264FA] text-white px-4 py-2 rounded-base"
+            onClick={() => setIsGuideOpen(true)}
+          >
+            <DiscordLogoIcon className="size-4 mr-2" />
+            Add to Discord
+          </Button>
         </FadeIn.Item>
         <FadeIn.Item>
           <Text size="2" className="text-gray-10 mt-8 text-base">
@@ -62,7 +68,7 @@ export default function Home() {
           </Text>
         </FadeIn.Item>
         <FadeIn.Item>
-          <Flex gap="4" mt="6" justify="center">
+          <div className="grid grid-cols-1 md:grid-cols-2 mb-12 md:mb-0 gap-4 mt-6 justify-center">
             <Image
               src="/images/feed-list.png"
               alt="Discorss Feed List Example"
@@ -77,13 +83,20 @@ export default function Home() {
               height={200}
               className="rounded-lg shadow-lg border border-gray-a3"
             />
-          </Flex>
+          </div>
         </FadeIn.Item>
       </Flex>
 
       <FadeIn.Item>
         <Footer />
       </FadeIn.Item>
+
+      <GuideDialog
+        isOpen={isGuideOpen}
+        onOpenChange={setIsGuideOpen}
+        redirectUrl={discordInviteLink}
+        countdownSeconds={5}
+      />
     </FadeIn.Container>
   );
 }
