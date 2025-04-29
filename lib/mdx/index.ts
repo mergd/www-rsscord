@@ -9,7 +9,7 @@ import matter from "gray-matter";
 
 function readFile(filePath: string): Post | null {
   try {
-    const rawContent = fs.readFileSync(filePath, 'utf8');
+    const rawContent = fs.readFileSync(filePath, "utf8");
     const { data, content } = matter(rawContent);
 
     const slug = path.basename(filePath, path.extname(filePath));
@@ -27,8 +27,9 @@ function readFile(filePath: string): Post | null {
 
 function getFiles(dir: string): string[] {
   try {
-    return fs.readdirSync(dir)
-      .filter(file => file.endsWith('.mdx') || file.endsWith('.md'));
+    return fs
+      .readdirSync(dir)
+      .filter((file) => file.endsWith(".mdx") || file.endsWith(".md"));
   } catch (error) {
     console.error(`Failed to read directory at ${dir}:`, error);
     return [];
