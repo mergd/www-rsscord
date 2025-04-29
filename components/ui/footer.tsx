@@ -1,4 +1,4 @@
-// import Link from "@/components/link";
+import Link from "next/link";
 import { AppThemeSwitcher } from "@/components/theme";
 
 const Footer = () => {
@@ -7,7 +7,10 @@ const Footer = () => {
       <div className="px-[2px] text-muted text-small">
         <div>Made in SF</div>
       </div>
-      <div className="text-muted text-small">
+      <div className="flex items-center gap-4 text-muted text-small">
+        <Link href="/changelog" className="hover:text-foreground transition-colors">
+          Changelog
+        </Link>
         <AppThemeSwitcher />
       </div>
     </div>
