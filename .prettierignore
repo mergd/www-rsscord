@@ -1,1 +1,3 @@
 *.mdx
+.pnpm-store
+.next

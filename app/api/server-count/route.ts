@@ -1,17 +1,11 @@
 const CACHE_TTL_SECONDS = 60 * 60;
-
-function getEnv(name: string): string {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-  return value;
-}
+const DEFAULT_STATS_URL = "https://simple-rss-disc-production.up.railway.app";
+const DEFAULT_API_SECRET = "00000000-0000-0000-0000-000000000000";
 
 export async function GET() {
   try {
-    const statsUrl = getEnv("BOT_STATS_URL");
-    const apiSecret = getEnv("BOT_API_SECRET");
+    const statsUrl = process.env.BOT_STATS_URL ?? DEFAULT_STATS_URL;
+    const apiSecret = process.env.BOT_API_SECRET ?? DEFAULT_API_SECRET;
 
     const response = await fetch(`${statsUrl.replace(/\/$/, "")}/stats`, {
       headers: {
