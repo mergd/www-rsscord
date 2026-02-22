@@ -7,16 +7,19 @@ export async function GET() {
     const statsUrl = process.env.BOT_STATS_URL ?? DEFAULT_STATS_URL;
     const apiSecret = process.env.BOT_API_SECRET ?? DEFAULT_API_SECRET;
 
-    const response = await fetch(`${statsUrl.replace(/\/$/, "")}/stats`, {
-      headers: {
-        Authorization: apiSecret,
+    const response = await fetch(
+      `${statsUrl.replace(/\/$/, "")}/server-count`,
+      {
+        headers: {
+          Authorization: apiSecret,
+        },
+        next: { revalidate: CACHE_TTL_SECONDS },
       },
-      next: { revalidate: CACHE_TTL_SECONDS },
-    });
+    );
 
     if (!response.ok) {
       return Response.json(
-        { error: "Failed to fetch stats" },
+        { error: "Failed to fetch server count" },
         {
           status: response.status,
           headers: {
