@@ -25,3 +25,12 @@ Built using Next.js, Sylph is optimized for performance and developer experience
 ## Documentation
 
 To get started with Sylph, check out the [Guides](https://next-sylph-portfolio.vercel.app/guides).
+
+## Discorss Server Count
+
+The homepage server count badge uses `GET /api/server-count`, which proxies to the Discorss manager API `GET /stats` and reads `guilds`.
+
+Required environment variables:
+
+- `BOT_STATS_URL` (example: `http://localhost:3001`)
+- `BOT_API_SECRET` (must match `config.api.secret` in the Discorss bot)

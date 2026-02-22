@@ -4,9 +4,6 @@ import * as FadeIn from "@/components/motion/staggers/fade";
 import { Footer } from "@/components/ui/footer";
 import { GuideDialog } from "@/components/ui/guide-dialog";
 
-import fs from "fs";
-import path from "path";
-
 import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import {
   Badge,
@@ -16,15 +13,37 @@ import {
   IconButton,
   Text,
 } from "@radix-ui/themes";
-import matter from "gray-matter";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [isGuideOpen, setIsGuideOpen] = useState(false);
+  const [serverCount, setServerCount] = useState<number | null>(null);
   const discordInviteLink =
     "https://discord.com/oauth2/authorize?client_id=1359049476207280169";
+
+  useEffect(() => {
+    let isMounted = true;
+
+    fetch("/api/server-count")
+      .then(async (res) => {
+        if (!res.ok) {
+          return;
+        }
+        const data = (await res.json()) as { guilds?: number };
+        if (isMounted && typeof data.guilds === "number") {
+          setServerCount(data.guilds);
+        }
+      })
+      .catch(() => {
+        // Ignore transient fetch errors and keep homepage rendering.
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <FadeIn.Container className="flex flex-col ">
@@ -57,6 +76,13 @@ export default function Home() {
             Use slash commands to customize your feeds.
           </Text>
         </FadeIn.Item>
+        {serverCount !== null ? (
+          <FadeIn.Item>
+            <Badge size="3" color="green" variant="soft" className="mt-4">
+              Installed in {serverCount.toLocaleString()} servers
+            </Badge>
+          </FadeIn.Item>
+        ) : null}
         <FadeIn.Item>
           <div className="flex gap-4 mt-4 items-center justify-center">
             <Button

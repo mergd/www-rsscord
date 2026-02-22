@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "pnpm run lint && pnpm run mdx:timestamps && next build",
+    "build": "pnpm run lint && pnpm run mdx:timestamps && NODE_ENV=production next build",
     "start": "next start",
     "postbuild": "next-sitemap",
     "mdx:timestamps": "node ./scripts/update-mdx-timestamps",
